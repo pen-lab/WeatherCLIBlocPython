@@ -1,0 +1,2 @@
+# WeatherCLIBlocPython
+Пример использования pythonBloc
