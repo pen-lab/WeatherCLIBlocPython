@@ -3,10 +3,14 @@ import asyncio
 import typer
 from aiohttp import ClientSession
 
+from bloc import BlocSupervisor
+
 from weather.blocs.weather_event import WeatherRequested
 from weather.blocs.weather_bloc import WeatherBloc
 from weather.repositories.weather_api_client import WeatherApiClient
 from weather.repositories.weather_repository import WeatherRepository
+
+from weather.ui import WeatherUI
 
 
 async def _main(city: str):
@@ -17,7 +21,6 @@ async def _main(city: str):
         await bloc._bind_state_subject()
 
         await bloc.dispatch(WeatherRequested(city))
-        typer.echo(f'Weather for {bloc.state.weather.location}: {bloc.state.weather.temp}')
 
 
 def weather(
@@ -27,5 +30,7 @@ def weather(
 
 
 def main():
-    typer.run(weather)
+    BlocSupervisor().delegate = WeatherUI()
 
+    typer.run(weather)
+    # asyncio.run(_main(sys.argv[1]))
