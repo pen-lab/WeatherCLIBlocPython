@@ -17,7 +17,7 @@ async def _main(city: str):
         await bloc._bind_state_subject()
 
         await bloc.dispatch(WeatherRequested(city))
-        typer.echo(f'weather to {bloc.state.weather.temp}')
+        typer.echo(f'Weather for {bloc.state.weather.location}: {bloc.state.weather.temp}')
 
 
 def weather(
