@@ -19,8 +19,22 @@ async def weather_api_client(aiohttp_client, loop) -> WeatherApiClient:
         yield weather_api_client
 
 
-@pytest.mark.parametrize('city', [CityData('London', 44418), CityData('Moscow', 2122265)])
+citys: list[CityData] = [
+    CityData('London', 44418),
+    CityData('Moscow', 2122265)
+]
+
+
+@pytest.mark.parametrize('city', citys)
 async def test_get_location_id(weather_api_client: WeatherApiClient, city: CityData):
     city_id_london = await weather_api_client.get_location_id(city.name)
 
     assert city_id_london == city.id
+
+
+async def test_fetch_weather(weather_api_client: WeatherApiClient):
+    from weather.models.weather import Weather
+
+    weather: Weather = await weather_api_client.fetch_weather(citys[0].id)
+
+    assert weather.location == citys[0].name
