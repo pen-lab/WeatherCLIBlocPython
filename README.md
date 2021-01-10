@@ -1,5 +1,5 @@
 # WeatherCLIBlocPython
-Пример использования pythonBloc
+Пример использования [pythonBloc](https://github.com/pen-lab/python-bloc)
 
 ![weather](./weather.png)
 
