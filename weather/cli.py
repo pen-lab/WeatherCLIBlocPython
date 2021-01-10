@@ -1,7 +1,7 @@
 import asyncio
 
-from aiohttp import ClientSession
 import typer
+from aiohttp import ClientSession
 
 from weather.blocs.weather_event import WeatherRequested
 from weather.blocs.weather_bloc import WeatherBloc
