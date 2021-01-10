@@ -8,8 +8,14 @@ authors = ["pen-dev <pelipenkovladislav@gmail.com>"]
 python = "3.9.1"
 bloc = {git = "https://github.com/pen-lab/python-bloc.git", rev = "0.1.1"}
 typer = "^0.3.2"
+aiohttp = "3.7.3"
+pydantic = "1.7.3"
 
 [tool.poetry.dev-dependencies]
+pytest = "4.6.11"
+
+[tool.poetry.scripts]
+weather = "weather.cli:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
