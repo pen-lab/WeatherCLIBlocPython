@@ -4,7 +4,6 @@ from typing import AsyncGenerator
 from typing import Final
 
 from bloc import Bloc, Transition
-from bloc._bloc.bloc import E, S
 
 from weather.models.weather import Weather
 from weather.repositories.weather_repository import WeatherRepository
@@ -24,7 +23,7 @@ class WeatherBloc(Bloc[WeatherEvent, WeatherState]):
         super(WeatherBloc, self).__init__()
         self.weather_repository: WeatherRepository = weather_repository
 
-    async def on_transition(self, transition: Transition[E, S]) -> None:
+    async def on_transition(self, transition: Transition[WeatherEvent, WeatherState]) -> None:
         # print(f'{transition}')
         pass
 
