@@ -13,7 +13,7 @@ def moscow_data() -> CityData:
     return citys[1]
 
 
-async def test_bloc(weather_api_client: WeatherApiClient, moscow_data: CityData):
+async def test_success(weather_api_client: WeatherApiClient, moscow_data: CityData):
     weather_repository: WeatherRepository = WeatherRepository(weather_api_client)
     bloc: WeatherBloc = WeatherBloc(weather_repository)
     await bloc._bind_state_subject()
@@ -21,3 +21,15 @@ async def test_bloc(weather_api_client: WeatherApiClient, moscow_data: CityData)
     await bloc.dispatch(WeatherRequested(moscow_data.name))
 
     assert bloc.state.weather.location == moscow_data.name
+
+
+async def test_failure(weather_api_client: WeatherApiClient, moscow_data: CityData):
+    from weather.blocs.weather_state import WeatherLoadFailure
+
+    weather_repository: WeatherRepository = WeatherRepository(weather_api_client)
+    bloc: WeatherBloc = WeatherBloc(weather_repository)
+    await bloc._bind_state_subject()
+
+    await bloc.dispatch(WeatherRequested('some_city'))
+
+    assert isinstance(bloc.state, WeatherLoadFailure)
