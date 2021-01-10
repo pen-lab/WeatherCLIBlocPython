@@ -8,24 +8,7 @@ from weather.models.weather import Weather
 from weather.repositories.weather_api_client import WeatherApiClient
 from weather.repositories.weather_repository import WeatherRepository
 
-
-@dataclasses.dataclass
-class CityData:
-    name: str
-    id: int
-
-
-@pytest.fixture()
-async def weather_api_client(aiohttp_client, loop) -> WeatherApiClient:
-    async with ClientSession() as session:
-        weather_api_client = WeatherApiClient(session)
-        yield weather_api_client
-
-
-citys: list[CityData] = [
-    CityData('London', 44418),
-    CityData('Moscow', 2122265)
-]
+from .conftest import citys, CityData
 
 
 @pytest.mark.parametrize('city', citys)
