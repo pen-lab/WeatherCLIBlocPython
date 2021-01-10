@@ -2,7 +2,6 @@ from typing import AsyncGenerator
 from typing import Final
 
 from bloc import Bloc
-from bloc._bloc.bloc import S
 
 from weather.models.weather import Weather
 from weather.repositories.weather_repository import WeatherRepository
